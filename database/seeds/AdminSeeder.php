@@ -19,7 +19,8 @@ class AdminSeeder extends Seeder
             'password' => bcrypt(123123),
             'alamat' => 'Jakarta',
             'tempat_lahir' => 'Jakarta',
-            'tgl_lahir' => '2019-01-07'
+            'tgl_lahir' => '2019-01-07',
+            'is_approved'=> '1'
         ]);
 
         $user->assignRole('admin');

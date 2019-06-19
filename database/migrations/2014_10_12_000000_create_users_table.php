@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('alamat');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
+            $table->string('is_approved')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

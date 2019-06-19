@@ -12,6 +12,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     protected $primaryKey = 'nim';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

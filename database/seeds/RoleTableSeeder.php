@@ -15,15 +15,24 @@ class RoleTableSeeder extends Seeder
     {
         app()['cache']->forget('spatie.permission.cache');
 
-        Permission::create(['name' => 'add post']);
-        Permission::create(['name' => 'edit post']);
-        Permission::create(['name' => 'delete post']);
-        Permission::create(['name' => 'view post']);
+        Permission::create(['name' => 'view exam']);
+        Permission::create(['name' => 'add exam']);
+        Permission::create(['name' => 'edit exam']);
+        Permission::create(['name' => 'delete exam']);
+        Permission::create(['name' => 'report exam']);
+        Permission::create(['name' => 'do exam']);
+        Permission::create(['name' => 'view report']);
+        Permission::create(['name' => 'acc caslab']);
+        Permission::create(['name' => 'viewMyReport']);
+        Permission::create(['name' => 'view caslab']);
 
         $role = Role::create(['name' => 'admin']);
         $role -> givePermissionTo(Permission::all());
 
-        $role = Role::create(['name' => 'user']);
-        $role -> givePermissionTo('view post');
+        $role = Role::create(['name' => 'caslab'])
+        ->givePermissionTo(['view exam', 'do exam','viewMyReport']);
+
+        $role = Role::create(['name' => 'asisten'])
+        ->givePermissionTo(['view exam','report exam','view report','acc caslab']);
     }
 }

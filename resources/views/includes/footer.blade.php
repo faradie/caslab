@@ -1,0 +1,1 @@
+<span>Copyright &copy; Multimedia 2019</span>
