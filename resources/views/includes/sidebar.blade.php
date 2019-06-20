@@ -27,15 +27,16 @@
       @endif
       
       @if(auth()->user()->can('add exam') || auth()->user()->can('edit exam') || auth()->user()->can('delete exam') )
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Daftar Ujian</span></a>
-      </li>
+      
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-user-friends"></i>
-          <span>Daftar Peserta</span></a>
+          <span>Daftar User</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('new_user') }}">
+          <i class="fas fa-fw fa-user"></i>
+          <span>User Baru</span></a>
       </li>
         <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
@@ -76,49 +77,45 @@
       <hr class="sidebar-divider">
 
 
+
       <!-- Heading -->
-      @if(auth()->user()->can('report exam') || auth()->user()->can('view report') )
+      @if(auth()->user()->can('report exam') || auth()->user()->can('view report') || auth()->user()->can('acc caslab') )
       <div class="sidebar-heading">
-        Asisten
-      </div>
-      @endif
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
+          Asisten
         </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>Daftar Ujian</span></a>
       </li>
+      @endif
+
+    
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+
+       <!-- Heading -->
+       @if(auth()->user()->can('view exam') || auth()->user()->can('do exam') || auth()->user()->can('viewMyReport') )
+      <div class="sidebar-heading">
+          Calon Asisten
+        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-user-friends"></i>
+          <span>Daftar Peserta</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Upload Portofolio</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Ujian</span></a>
+      </li>
+      @endif
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

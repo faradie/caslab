@@ -14,10 +14,10 @@ class CreateSoaltesTable extends Migration
     public function up()
     {
         Schema::create('soaltes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id')->unique()->primary();
             $table->string('pertanyaan');
             $table->string('kunci_jwb');            
-            $table->unsignedInteger('id_tes_fk');
+            $table->string('id_tes_fk');
             $table->timestamps();
 
             $table->foreign('id_tes_fk')->references('id')->on('tes')->onDelete('CASCADE');

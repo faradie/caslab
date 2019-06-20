@@ -14,7 +14,7 @@ class CreateTesTable extends Migration
     public function up()
     {
         Schema::create('tes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id')->unique()->primary();
             $table->string('nama_tes');
             $table->timestamps();
         });

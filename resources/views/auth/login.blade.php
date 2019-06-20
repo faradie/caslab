@@ -16,6 +16,11 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Selamat Datang Calon Asisten!</h1>
             </div>
+            @if(session()->has('erro_login'))
+            <div class="alert alert-danger">
+                {{ session()->get('erro_login') }}
+            </div>
+            @endif
             <form class="user" method="POST" action="{{ route('login') }}">
             @csrf
               <div class="form-group">

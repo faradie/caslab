@@ -28,10 +28,12 @@ Route::resource('hasil','HasilController');
 Route::get('login', [
     'as' => 'login',
     'uses' => 'Auth\LoginController@showLoginForm',
+    'middleware'    => 'checkstatus'
   ]);
   Route::post('login', [
     'as' => '',
     'uses' => 'Auth\LoginController@login',
+    'middleware'    => 'checkstatus'
   ]);
   Route::post('logout', [
     'as' => 'logout',
@@ -70,3 +72,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/post/add', 'AddController@create')->name('addpost');
 // Route::post('/post/add', 'AddController@store')->name('storepost');
+
+Route::group(['middleware' => ['role:admin','auth']], function () {
+  Route::get('/user/baru', 'AdminController@new_user')->name('new_user');
+ 
+
+});
