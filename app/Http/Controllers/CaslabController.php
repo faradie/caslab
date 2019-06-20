@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Caslab;
+use App\User;
 
 class CaslabController extends Controller
 {
+
+    public function list_caslab(){
+        $users =User::role('caslab')->get();
+        return view('pages.listcaslab', compact('users'));
+    }
+
     public function index()
     {
         $caslab['data_caslab'] = Caslab::all();

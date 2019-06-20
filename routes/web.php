@@ -74,7 +74,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/post/add', 'AddController@store')->name('storepost');
 
 Route::group(['middleware' => ['role:admin','auth']], function () {
+  Route::get('/user/list', 'AdminController@user_list')->name('user_list');
   Route::get('/user/baru', 'AdminController@new_user')->name('new_user');
- 
+  Route::patch('/caslab/baru/{id}', 'AdminController@terima_caslab')->name('terima_caslab');
+  Route::patch('/user/detail/{id}', 'AdminController@detail_user')->name('detail_user');
+});
 
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/caslab/list', 'CaslabController@list_caslab')->name('list_caslab');
+  
 });
