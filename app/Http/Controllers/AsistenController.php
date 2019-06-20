@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tes;
+use App\Soaltes;
+use App\Jawaban;
 use Webpatser\Uuid\Uuid;
 
 class AsistenController extends Controller
@@ -56,15 +58,12 @@ class AsistenController extends Controller
                        break;
                        case 'Daftar Soal':
                        $Test = Tes::find($id);
-                       return view('pages.asisten.soal.listsoal',compact('Test'));
+                       $soaltest = Soaltes::all()->where('id_tes_fk',$id);
+                       return view('pages.asisten.soal.listsoal',compact('Test','soaltest'));
                            break;
-               
-               default:
-                   # code...
-                   break;
            }
         } catch (\Throwable $th) {
-           
+            return redirect()->route('list_ujian')->with('result_gagal', 'Action Gagal');
         }
     }
 
@@ -77,6 +76,36 @@ class AsistenController extends Controller
             return redirect()->route('list_ujian')->with('result_berhasil', 'Edit Berhasil');
         } catch (\Throwable $th) {
             return redirect()->route('list_ujian')->with('result_gagal', 'Edit Gagal');
+        }
+    }
+
+    public function buat_soal($id){
+        $test = Tes::find($id);
+        return view('pages.asisten.soal.buatsoal',compact('test'));
+    }
+
+    public function buat_soal_submit($id){
+        try {
+            $request = request();
+            $uid = Uuid::generate();
+            
+            Soaltes::create([
+                'id' => $uid,
+                'pertanyaan' => request('inputPertanyaan'),
+                'kunci_jwb' => request('jawaban_a'),
+                'id_tes_fk' => $id,
+            ]);
+            
+            Jawaban::create([
+                'id_soal_fk' => $uid,
+                'jawab_a' => request('jawaban_a'),
+                'jawab_b' =>request('jawaban_b'),
+                'jawab_c' =>request('jawaban_c'),
+                'jawab_d' =>request('jawaban_d'),
+            ]);
+            return back()->with('result_berhasil', 'Berhasil tambah soal!');
+        } catch (\Throwable $th) {
+            return back()->with('result_gagal', 'Gagal tambah soal!');
         }
     }
 }

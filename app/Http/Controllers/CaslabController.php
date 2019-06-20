@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Caslab;
 use App\User;
+use App\Tes;
+use App\Soaltes;
 use App\Portofolio;
 use Webpatser\Uuid\Uuid;
 
@@ -129,5 +131,16 @@ class CaslabController extends Controller
         }
 
         return redirect()->route('data_caslab')->with('failed', 'Data tidak berhasil dihapus!');
+    }
+
+    public function ujian(){
+        $listujian = Tes::all();
+        return view('pages.ujian.ujian',compact('listujian'));
+    }
+
+    public function action_ujian_caslab($id){
+        $Test = Tes::find($id);
+        $soaltest = Soaltes::all()->where('id_tes_fk',$id);
+        return view('pages.ujian.pengerjaan',compact('Test','soaltest'));
     }
 }

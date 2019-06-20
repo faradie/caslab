@@ -13,7 +13,7 @@ class CreateJawabanTable extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban', function (Blueprint $table) {
+        Schema::create('jawabans', function (Blueprint $table) {
             $table->string('id_soal_fk');
             $table->string('jawab_a');
             $table->string('jawab_b');

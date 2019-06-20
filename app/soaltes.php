@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Soaltes extends Model
 {
-    protected $fillable = ['pertanyaan','jawab_a','jawab_b','jawab_c','jawab_d','jawaban','nilai_id'];
+    protected $primaryKey ="id";
+    public $incrementing = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id','pertanyaan','kunci_jwb','id_tes_fk'];
 }

@@ -120,7 +120,7 @@
     <span>Upload Portofolio</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="{{ route('ujian') }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Ujian</span></a>
 </li>
