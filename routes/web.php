@@ -78,9 +78,20 @@ Route::group(['middleware' => ['role:admin','auth']], function () {
   Route::get('/user/baru', 'AdminController@new_user')->name('new_user');
   Route::patch('/caslab/baru/{id}', 'AdminController@terima_caslab')->name('terima_caslab');
   Route::patch('/user/detail/{id}', 'AdminController@detail_user')->name('detail_user');
+  Route::patch('/user/{id}','AdminController@edit')->name('user.edit');
 });
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/caslab/list', 'CaslabController@list_caslab')->name('list_caslab');
-  
+  Route::get('/portofolio/page', 'CaslabController@portofolio_page')->name('portofolio');
+  Route::patch('/portofolio/upload', 'CaslabController@porto_upload')->name('porto_upload');
+});
+
+Route::group(['middleware' => ['role:asisten','auth']], function () {
+  Route::get('/ujian/list', 'AsistenController@list_ujian')->name('list_ujian');
+  Route::get('/ujian/new', 'AsistenController@buat_ujian')->name('buat_ujian');
+  Route::patch('/ujian/submit', 'AsistenController@buat_ujian_submit')->name('buat_ujian_submit');
+  Route::patch('/ujian/action/{id}', 'AsistenController@action_ujian')->name('action_ujian');
+  Route::patch('/ujian/action/{id}/submit', 'AsistenController@edit_ujian_submit')->name('edit_ujian_submit');
+
 });

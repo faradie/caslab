@@ -46,4 +46,27 @@ class AdminController extends Controller
         $userRoles = $this_user->getRoleNames();
         return view('pages.detailuser', compact('this_user','roles','permissions','userRoles'));
     }
+
+    public function edit($id, Request $request){
+        try {
+            $user = User::find($id);
+            $user->update([
+                'name' => request('inputNama'),
+                'email' => request('inputEmail'),
+                'alamat' => request('inputAlamat'),
+                'birth_place' => request('inputPlace'),
+                'birth_date' => request('inputDate'),
+                'gender'=> request('inputGender'),
+            ]);
+                    $getRoles = $request->input('get_roles');
+                    $getPermission = $request->input('get_permissions');
+
+                    $user->syncRoles($getRoles);
+                    $user->syncPermissions($getPermission);
+                    return redirect()->route('user_list')->with('result_berhasil', 'Perubahan Berhasil');
+        } catch (\Throwable $th) {
+                return redirect()->route('user_list')->with('result_gagal', 'Perubahan Gagal');
+        }
+
+    }
 }

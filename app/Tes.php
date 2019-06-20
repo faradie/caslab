@@ -8,4 +8,14 @@ class Tes extends Model
 {
     protected $primaryKey ="id";
     public $incrementing = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id','nama_tes'
+    ];//
+
 }

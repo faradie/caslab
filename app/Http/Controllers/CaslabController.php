@@ -5,9 +5,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Caslab;
 use App\User;
+use App\Portofolio;
+use Webpatser\Uuid\Uuid;
 
 class CaslabController extends Controller
 {
+
+    public function porto_upload(){
+        try {
+        $request = request();
+        $portof = $request->file('portofolio_file')->store('portofolios');
+        
+        $uid = Uuid::generate();
+        
+        Portofolio::create([
+            'id' => $uid,
+            'nim' => auth()->user()->nim,
+            'file' => $portof,
+        ]);
+            return redirect()->route('portofolio')->with('result_berhasil', 'Upload Portofolio Berhasil');
+        } catch (\Throwable $th) {
+            return redirect()->route('portofolio')->with('result_gagal', 'Upload Portofolio Gagal');
+        }
+
+    }
+
+    public function portofolio_page(){
+        $check=DB::table('portofolios')
+                    ->where('nim','=',auth()->user()->nim)
+                    ->count();
+        if ($check>0) {
+            $files=Portofolio::all()
+            ->where('nim','=',auth()->user()->nim);
+            return view('pages.portofolio.done',compact('files'));
+        }else{
+            return view('pages.portofolio.page');
+        }
+        
+    }
 
     public function list_caslab(){
         $users =User::role('caslab')->get();

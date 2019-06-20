@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $check=DB::table('portofolios')
+                    ->where('nim','=',auth()->user()->nim)
+                    ->count();
+        return view('pages.home',compact('check'));
     }
 }

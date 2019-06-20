@@ -33,6 +33,6 @@ class RoleTableSeeder extends Seeder
         ->givePermissionTo(['view exam', 'do exam','viewMyReport']);
 
         $role = Role::create(['name' => 'asisten'])
-        ->givePermissionTo(['view exam','report exam','view report','acc caslab']);
+        ->givePermissionTo(['view exam','report exam','view report','acc caslab','add exam','edit exam','delete exam']);
     }
 }

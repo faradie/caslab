@@ -24,39 +24,38 @@
 <div class="sidebar-heading">
   Admin
 </div>
-@endif
 
-@if(auth()->user()->can('add exam') || auth()->user()->can('edit exam') || auth()->user()->can('delete exam') )
 
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('user_list') }}">
-    <i class="fas fa-fw fa-user-friends"></i>
-    <span>Daftar User</span></a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="{{ route('new_user') }}">
-    <i class="fas fa-fw fa-user"></i>
-    <span>User Baru</span></a>
-</li>
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-    aria-controls="collapseTwo">
-    <i class="fas fa-fw fa-cog"></i>
-    <span>Komponen</span>
-  </a>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Ujian:</h6>
-      <a class="collapse-item" href="buttons.html">Tulis</a>
-      <a class="collapse-item" href="cards.html">Hardware</a>
-      <a class="collapse-item" href="cards.html">Software</a>
-      <a class="collapse-item" href="cards.html">Wawancara</a>
+    <a class="nav-link" href="{{ route('user_list') }}">
+      <i class="fas fa-fw fa-user-friends"></i>
+      <span>Daftar User</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('new_user') }}">
+      <i class="fas fa-fw fa-user"></i>
+      <span>User Baru</span></a>
+  </li>
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+      aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Komponen</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Ujian:</h6>
+        <a class="collapse-item" href="buttons.html">Tulis</a>
+        <a class="collapse-item" href="cards.html">Hardware</a>
+        <a class="collapse-item" href="cards.html">Software</a>
+        <a class="collapse-item" href="cards.html">Wawancara</a>
+      </div>
     </div>
-  </div>
-</li>
-<hr class="sidebar-divider">
+  </li>
+  <hr class="sidebar-divider">
 @endif
+
 
 <!-- Nav Item - Utilities Collapse Menu
       <li class="nav-item">
@@ -86,16 +85,23 @@
   Asisten
 </div>
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="{{ route('list_ujian') }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Daftar Ujian</span></a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="charts.html">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Daftar Portofolio</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="charts.html">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Wawancara</span></a>
+  </li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 @endif
-
-
-
 
 
 <!-- Heading -->
@@ -109,7 +115,7 @@
     <span>Daftar Peserta</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="{{ route('portofolio') }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Upload Portofolio</span></a>
 </li>
