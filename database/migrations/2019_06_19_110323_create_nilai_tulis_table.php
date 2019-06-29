@@ -15,11 +15,13 @@ class CreateNilaiTulisTable extends Migration
     {
         Schema::create('nilai_tulis', function (Blueprint $table) {
             $table->string('nim',9);
+            $table->string('idTest');
             $table->string('idSoal');
-
+            
             $table->boolean('hasil');
 
             $table->foreign('idSoal')->references('id')->on('soaltes')->onDelete('CASCADE');
+            $table->foreign('idTest')->references('id')->on('tes')->onDelete('CASCADE');
             $table->foreign('nim')->references('nim')->on('users')->onDelete('CASCADE');
             $table->timestamps();
         });

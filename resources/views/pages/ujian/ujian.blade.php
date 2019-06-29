@@ -34,11 +34,21 @@
                 <td>{{ $ujian->nama_tes }}</td>
                 <td>{{ $ujian->created_at }}</td>
                 <td>
+                    @if (\App\NilaiTulis::where(['nim' =>
+                    auth()->user()->nim])->where('idTest',$ujian->id)->first() != null)
+                    <form action="{{ route('rincian_ujian_caslab',$ujian->id) }}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('PATCH') }}
+                            <input class="btn btn-info" name="submitbutton" type="submit" value="Rincian" />
+                        </form>
+                    @else
                     <form action="{{ route('action_ujian_caslab',$ujian->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <input class="btn btn-primary" name="submitbutton" type="submit" value="Kerjakan" />
                     </form>
+                    @endif
+
                 </td>
             </tr>
             @endforeach
@@ -46,6 +56,5 @@
         </tbody>
     </table>
 </div>
-<form action="{{ route('buat_ujian') }}"><input class="btn btn-primary btn-block" type="submit" value="Buat Ujian" />
-</form>
+
 @stop

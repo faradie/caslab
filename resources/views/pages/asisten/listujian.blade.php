@@ -40,6 +40,7 @@
                 <input class="btn btn-danger" name="submitbutton" type="submit" value="Hapus" />
                 <input class="btn btn-dark" name="submitbutton" type="submit" value="Edit" />
                 <input class="btn btn-info" name="submitbutton" type="submit" value="Daftar Soal" />
+                <input class="btn btn-primary" name="submitbutton" type="submit" value="Wawancara" />
               </form>
         </td>
       </tr>

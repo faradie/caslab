@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wawancara extends Model
 {
-    protected $fillable = ['nim_caslab','nama','keputusan','karakter','microteaching','komunikasi'];
+    protected $primaryKey ="id";
+    public $incrementing = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id','nim','idTest','keputusan','karakter','microteaching','komunikasi'];
 }

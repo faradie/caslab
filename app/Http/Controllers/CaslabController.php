@@ -7,11 +7,18 @@ use App\Caslab;
 use App\User;
 use App\Tes;
 use App\Soaltes;
+use App\NilaiTulis;
 use App\Portofolio;
+use App\Wawancara;
 use Webpatser\Uuid\Uuid;
 
 class CaslabController extends Controller
 {
+
+    public function list_portofolio(){
+        $portos =Portofolio::all();
+        return view('pages.portofolio.listportofolio', compact('portos'));
+    }
 
     public function porto_upload(){
         try {
@@ -24,6 +31,7 @@ class CaslabController extends Controller
             'id' => $uid,
             'nim' => auth()->user()->nim,
             'file' => $portof,
+            'idTest'=>request('testPorto')
         ]);
             return redirect()->route('portofolio')->with('result_berhasil', 'Upload Portofolio Berhasil');
         } catch (\Throwable $th) {
@@ -41,7 +49,8 @@ class CaslabController extends Controller
             ->where('nim','=',auth()->user()->nim);
             return view('pages.portofolio.done',compact('files'));
         }else{
-            return view('pages.portofolio.page');
+            $tests = Tes::all();
+            return view('pages.portofolio.page',compact('tests'));
         }
         
     }
@@ -140,7 +149,64 @@ class CaslabController extends Controller
 
     public function action_ujian_caslab($id){
         $Test = Tes::find($id);
-        $soaltest = Soaltes::all()->where('id_tes_fk',$id);
+        $soaltest = Soaltes::all()->where('id_tes_fk',$id)->shuffle();
         return view('pages.ujian.pengerjaan',compact('Test','soaltest'));
+    }
+
+    public function rincian_ujian_caslab($id){
+        $Test = Tes::find($id);
+               
+        $tulis=NilaiTulis::all()
+            ->where('nim','=',auth()->user()->nim)->where('idTest',$Test->id)->where('hasil','1')->count()*10;
+            
+        $wawancara = DB::table('wawancaras')
+            ->where('nim', auth()->user()->nim)
+            ->where('idTest',$Test->id)
+            ->first();
+
+            $portof = DB::table('portofolios')
+            ->where('nim', auth()->user()->nim)
+            ->where('idTest',$Test->id)
+            ->first();
+        $nilai_portof = 0;
+        $nilai_wawancara = 0;
+        if($wawancara != null){
+            $nilai_wawancara = $wawancara->keputusan+$wawancara->karakter+$wawancara->microteaching+$wawancara->komunikasi;
+        }
+
+        if($portof != null){
+            $nilai_portof = 10;
+        }
+
+        $total = $tulis+$nilai_wawancara+$nilai_portof;
+        return view('pages.ujian.rincian',compact('Test','tulis','nilai_wawancara','total','nilai_portof'));
+    }
+
+    public function submit_pengerjaan($id,Request $request){
+        try {
+        $Test = Tes::find($id);
+        $soaltest = Soaltes::with('jawaban')->where('id_tes_fk',$Test->id)->get();
+        foreach ($soaltest as $key => $value) {
+            if($value->kunci_jwb == request($value->id)){
+                NilaiTulis::create([
+                    'nim' => auth()->user()->nim,
+                    'idSoal' => $value->id,
+                    'hasil' => true,
+                    'idTest' => $Test->id
+                ]);
+            }else{
+                NilaiTulis::create([
+                    'nim' => auth()->user()->nim,
+                    'idSoal' => $value->id,
+                    'hasil' => false,
+                    'idTest' => $Test->id
+                ]);
+            }
+        }
+        
+        return redirect()->route('ujian')->with('result_berhasil', 'Pekerjaan anda telah disimpan');
+        } catch (\Throwable $th) {
+            return redirect()->route('ujian')->with('result_gagal', 'Pekerjaan anda gagal disimpan');
+        }
     }
 }

@@ -14,14 +14,13 @@ class CreateJawabanTable extends Migration
     public function up()
     {
         Schema::create('jawabans', function (Blueprint $table) {
-            $table->string('id_soal_fk');
-            $table->string('jawab_a');
-            $table->string('jawab_b');
-            $table->string('jawab_c');
-            $table->string('jawab_d');
+            $table->string('id')->unique()->primary();
+            $table->string('soaltes_id');
+            $table->string('jawaban');
+
             $table->timestamps();
 
-            $table->foreign('id_soal_fk')->references('id')->on('soaltes')->onDelete('CASCADE');
+            $table->foreign('soaltes_id')->references('id')->on('soaltes')->onDelete('CASCADE');
         });
     }
 

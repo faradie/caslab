@@ -90,15 +90,10 @@
     <span>Daftar Ujian</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="{{ route('list_portofolio') }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Daftar Portofolio</span></a>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href="charts.html">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Wawancara</span></a>
-  </li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 @endif

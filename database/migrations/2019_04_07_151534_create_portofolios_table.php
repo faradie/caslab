@@ -16,9 +16,11 @@ class CreatePortofoliosTable extends Migration
         Schema::create('portofolios', function (Blueprint $table) {
             $table->string('id')->unique()->primary();
             $table->string('nim',9);
-            $table->string('file')->nullable()->default(null);            
+            $table->string('file')->nullable()->default(null);
+            $table->string('idTest');              
             $table->timestamps();
 
+            $table->foreign('idTest')->references('id')->on('tes')->onDelete('CASCADE');
             $table->foreign('nim')->references('nim')->on('users')->onDelete('CASCADE');
         });
     }

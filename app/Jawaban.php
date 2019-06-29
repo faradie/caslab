@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jawaban extends Model
 {
+    protected $primaryKey ="id";
     public $incrementing = false;
 
     /**
@@ -13,5 +14,10 @@ class Jawaban extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_soal_fk','jawab_a','jawab_b','jawab_c','jawab_d'];
+    protected $fillable = ['id','soaltes_id','jawaban'];
+
+    public function soaltes()
+    {
+        return $this->belongsTo('App\Soaltes');
+    }
 }

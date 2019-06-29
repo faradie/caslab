@@ -1,5 +1,0 @@
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }

@@ -13,6 +13,6 @@ class Portofolio extends Model
      * @var array
      */
     protected $fillable = [
-        'id','nim','file'
+        'id','nim','file','idTest'
     ];//
 }

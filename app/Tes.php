@@ -18,4 +18,8 @@ class Tes extends Model
         'id','nama_tes'
     ];//
 
+    public function soaltes(){
+        return $this->hasMany('App\Soaltes');
+    }
+
 }

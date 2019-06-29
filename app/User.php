@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','nim','alamat','tempat_lahir','tgl_lahir'
+        'name', 'email', 'password','nim','alamat','tempat_lahir','tgl_lahir','is_approved'
     ];
 
     /**
@@ -35,5 +35,9 @@ class User extends Authenticatable
     public function username()
     {
         return 'nim';
+    }
+
+    public function nilaitulis(){
+        return $this->hasMany('App\NilaiTulis');
     }
 }

@@ -15,13 +15,15 @@ class CreateWawancarasTable extends Migration
     {
         Schema::create('wawancaras', function (Blueprint $table) {
             $table->string('id')->unique()->primary();
-            $table->string('nim',9);            
+            $table->string('nim',9);  
+            $table->string('idTest');          
             $table->Integer('keputusan');
             $table->Integer('karakter');
             $table->Integer('microteaching');
             $table->Integer('komunikasi');            
             $table->timestamps();
 
+            $table->foreign('idTest')->references('id')->on('tes')->onDelete('CASCADE');
             $table->foreign('nim')->references('nim')->on('users')->onDelete('CASCADE');
         });
     }

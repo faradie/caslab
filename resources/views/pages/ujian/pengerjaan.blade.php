@@ -9,26 +9,31 @@
 <label for="portofolio_file">Kerjakan soal dengan kemampuan anda dan jujur..</label>
 <hr>
 <br>
-<form action="">
+@if(!$soaltest->isEmpty())
+<form action="{{ route('submit_pengerjaan',$Test->id) }}" method="POST">
+        {{ csrf_field() }}
+        {{ method_field('PATCH') }}
         @foreach ($soaltest as $soal)
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ $soal->pertanyaan }}</h6>
             </div>
             <div class="card-body">
-                <fieldset id="group{{$loop->iteration}}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="group{{$loop->iteration}}" id="exampleRadios1" value="option1"
-                            checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            Default radio
-                        </label>
-                    </div>
-                </fieldset>
+                @foreach ($soal->jawaban->shuffle() as $item)
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ $soal->id }}" id="{{ $soal->id }}"
+                        value="{{ $item->jawaban }}" required>
+                    <label class="form-check-label" for="{{ $item->jawaban }}">
+                        {{ $item->jawaban }}
+                    </label>
+                </div>
+                @endforeach
             </div>
         </div>
-        
         @endforeach
-</form>
+        <input class="btn btn-primary btn-block" type="submit" value="Kumpulkan" />
+        <br>
+    </form>
+@endif
 
 @stop

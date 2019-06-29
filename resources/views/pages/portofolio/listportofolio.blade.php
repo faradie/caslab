@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Daftar Caslab</h1>
+    <h1 class="h3 mb-0 text-gray-800">Daftar Portofolio Terkumpul</h1>
     <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
   </div>
   @if(session()->has('result_berhasil'))
@@ -20,20 +20,18 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">NIM</th>
-          <th scope="col">Nama</th>
-          <th scope="col">Email</th>
+          <th scope="col">Diupload pada</th>
         </tr>
       </thead>
       <tbody>
   
-        @foreach ($users as $user)
+        @foreach ($portos as $porto)
   
         <tr>
           <th scope="row">{{$loop->iteration}}</th>
-          <td>{{ $user->nim }}</td>
-          <td>{{ $user->name }}</td>
+          <td>{{ $porto->nim }}</td>
           <td>
-            {{ $user->email }}
+              {{ $porto->created_at }}
           </td>
         </tr>
   

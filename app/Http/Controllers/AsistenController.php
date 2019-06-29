@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Tes;
 use App\Soaltes;
 use App\Jawaban;
+use App\User;
+use App\Wawancara;
+use App\NilaiTulis;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class AsistenController extends Controller
 {
@@ -61,10 +65,61 @@ class AsistenController extends Controller
                        $soaltest = Soaltes::all()->where('id_tes_fk',$id);
                        return view('pages.asisten.soal.listsoal',compact('Test','soaltest'));
                            break;
+                           case 'Wawancara':
+                           $Test = Tes::find($id);
+                        //    $nilaiTulisLanjut = NilaiTulis::with('user')->get()->groupBy('nim');
+                           $nilaiTulisLanjut = DB::table('nilai_tulis')
+                            ->join('users', 'users.nim', '=', 'nilai_tulis.nim')
+                            ->where('users.is_approved', '1')
+                            ->get()->groupBy('nim');
+                           return view('pages.asisten.wawancara.listpeserta',compact('Test','nilaiTulisLanjut'));
+                               break;
            }
         } catch (\Throwable $th) {
             return redirect()->route('list_ujian')->with('result_gagal', 'Action Gagal');
         }
+    }
+    
+    public function action_wawancara($idTest,$nim,Request $request){
+        try {
+            switch ($request->submitbutton) {
+                case 'Penilaian':
+                $caslab = User::find($nim);
+                $Test = Tes::find($idTest);
+                return view('pages.asisten.wawancara.inputKomponen',compact('Test','caslab'));
+                    break;
+                    case 'Diskualifikasi':
+                        $deletedUser = User::find($nim);
+                        $deletedUser->update([
+                            'is_approved' => '2',
+                        ]);
+                        $nilaiTulisLanjut = DB::table('nilai_tulis')
+                            ->join('users', 'users.nim', '=', 'nilai_tulis.nim')
+                            ->where('users.is_approved', '1')
+                            ->get()->groupBy('nim');
+                        $Test = Tes::find($idTest);
+                        return view('pages.asisten.wawancara.listpeserta',compact('Test','nilaiTulisLanjut'))->with('result_berhasil', 'Berhasil Diskualifikasi!');
+                        break;
+            }
+        } catch (\Throwable $th) {
+            return back()->with('result_gagal', 'Action Gagal!');
+        }
+    }
+
+    public function submit_wawancara($idTest,$nim,Request $request){
+        $Test = Tes::find($idTest);
+        $nilaiTulisLanjut = NilaiTulis::with('user')->get()->groupBy('nim');
+        $uid = Uuid::generate();
+        Wawancara::create([
+            'id' => $uid,
+            'nim' => $nim,
+            'idTest'=> $idTest,
+            'keputusan'=> request('inputKeputusan'),
+            'karakter'=>request('inputKarakter'),
+            'microteaching'=>request('inputMicroteaching'),
+            'komunikasi'=>request('inputKomunikasi'),
+        ]);
+        return view('pages.asisten.wawancara.listpeserta',compact('Test','nilaiTulisLanjut'))->with('result_berhasil', 'Berhasil Input wawancara!');
     }
 
     public function edit_ujian_submit($id, Request $request){
@@ -92,17 +147,18 @@ class AsistenController extends Controller
             Soaltes::create([
                 'id' => $uid,
                 'pertanyaan' => request('inputPertanyaan'),
-                'kunci_jwb' => request('jawaban_a'),
+                'kunci_jwb' => request('jawaban_0'),
                 'id_tes_fk' => $id,
             ]);
             
-            Jawaban::create([
-                'id_soal_fk' => $uid,
-                'jawab_a' => request('jawaban_a'),
-                'jawab_b' =>request('jawaban_b'),
-                'jawab_c' =>request('jawaban_c'),
-                'jawab_d' =>request('jawaban_d'),
-            ]);
+            for ($i=0; $i <4 ; $i++) { 
+                $jwbID = Uuid::generate();
+                Jawaban::create([
+                    'id' => $jwbID,
+                    'soaltes_id' => $uid,
+                    'jawaban' => request('jawaban_'.$i),
+                ]);
+            }
             return back()->with('result_berhasil', 'Berhasil tambah soal!');
         } catch (\Throwable $th) {
             return back()->with('result_gagal', 'Gagal tambah soal!');

@@ -8,7 +8,7 @@ Route::get('/', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 
 Route::resource('data_caslab','CaslabController');
 
-Route::get('data_portofolio','PortofolioController@edit')->name('portofolio');
+// Route::get('data_portofolio','PortofolioController@edit')->name('portofolio');
 Route::post('data_portofolio','PortofolioController@update');
 
 Route::get('tes/add','TesController@create')->name('addtes');
@@ -85,6 +85,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/caslab/list', 'CaslabController@list_caslab')->name('list_caslab');
   Route::get('/caslab/ujian', 'CaslabController@ujian')->name('ujian');
   Route::patch('/caslab/ujian/{id}', 'CaslabController@action_ujian_caslab')->name('action_ujian_caslab');
+  Route::patch('/caslab/rincian/{id}', 'CaslabController@rincian_ujian_caslab')->name('rincian_ujian_caslab');
+  Route::patch('/caslab/ujian/{id}/submit', 'CaslabController@submit_pengerjaan')->name('submit_pengerjaan');
   Route::get('/portofolio/page', 'CaslabController@portofolio_page')->name('portofolio');
   Route::patch('/portofolio/upload', 'CaslabController@porto_upload')->name('porto_upload');
 });
@@ -92,6 +94,9 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['role:asisten|admin','auth']], function () {
   Route::get('/ujian/list', 'AsistenController@list_ujian')->name('list_ujian');
   Route::get('/ujian/new', 'AsistenController@buat_ujian')->name('buat_ujian');
+  Route::get('/portofolio/list', 'CaslabController@list_portofolio')->name('list_portofolio');
+  Route::patch('/ujian/{idTest}/wawancara/{nim}', 'AsistenController@action_wawancara')->name('action_wawancara');
+  Route::patch('/ujian/{idTest}/wawancara/{nim}/submit', 'AsistenController@submit_wawancara')->name('submit_wawancara');
   Route::patch('/ujian/submit', 'AsistenController@buat_ujian_submit')->name('buat_ujian_submit');
   Route::patch('/ujian/action/{id}', 'AsistenController@action_ujian')->name('action_ujian');
   Route::patch('/ujian/action/{id}/submit', 'AsistenController@edit_ujian_submit')->name('edit_ujian_submit');
