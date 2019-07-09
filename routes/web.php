@@ -102,4 +102,7 @@ Route::group(['middleware' => ['role:asisten|admin','auth']], function () {
   Route::patch('/ujian/action/{id}/submit', 'AsistenController@edit_ujian_submit')->name('edit_ujian_submit');
   Route::get('/ujian/{id}/soal/new', 'AsistenController@buat_soal')->name('buat_soal');
   Route::patch('/ujian/{id}/soal/submit', 'AsistenController@buat_soal_submit')->name('buat_soal_submit');
+  
+  Route::get('/ujian/nilai', 'AsistenController@list_nilai_total')->name('list_nilai_total');
+  Route::patch('/ujian/nilai/{id}', 'AsistenController@list_nilai_ujian')->name('list_nilai_ujian');
 });

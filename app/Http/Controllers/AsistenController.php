@@ -14,6 +14,25 @@ use Illuminate\Support\Facades\DB;
 
 class AsistenController extends Controller
 {
+
+
+    public function list_nilai_total(){
+        $listujian = Tes::all();
+        return view('pages.asisten.nilai.total', compact('listujian'));
+    }
+
+    public function list_nilai_ujian($id, Request $request){
+        $nilai_tests = DB::table('users')
+        ->leftJoin('nilai_tulis', 'users.nim', '=', 'nilai_tulis.nim')
+        ->leftJoin('portofolios','users.nim','=','portofolios.nim')
+        ->leftJoin('wawancaras','users.nim','=','wawancaras.nim')
+        ->select('users.*','nilai_tulis.nim as nims','nilai_tulis.hasil as hasils','portofolios.id as porto_id','wawancaras.*')
+        ->where('nilai_tulis.idTest', $id)
+        ->get();
+        $Test = Tes::find($id);
+        return view('pages.asisten.nilai.rincianTotal', compact('Test','nilai_tests'));
+    }
+
     public function list_ujian(){
         $listujian = Tes::all();
         return view('pages.asisten.listujian', compact('listujian'));

@@ -94,6 +94,11 @@
     <i class="fas fa-fw fa-table"></i>
     <span>Daftar Portofolio</span></a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('list_nilai_total') }}">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Daftar Nilai Tes</span></a>
+</li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 @endif

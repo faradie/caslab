@@ -26,7 +26,7 @@
                 <td>{{ $nilai_wawancara }}</td>
             </tr>
             <tr>
-                <th scope="row">2</th>
+                <th scope="row">3</th>
                 <td>Portofolio</td>
                 <td>{{ $nilai_portof }}</td>
             </tr>
