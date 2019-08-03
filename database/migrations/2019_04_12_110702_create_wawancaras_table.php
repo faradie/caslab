@@ -20,7 +20,8 @@ class CreateWawancarasTable extends Migration
             $table->Integer('keputusan');
             $table->Integer('karakter');
             $table->Integer('microteaching');
-            $table->Integer('komunikasi');            
+            $table->Integer('komunikasi');
+            $table->Integer('hardware');            
             $table->timestamps();
 
             $table->foreign('idTest')->references('id')->on('tes')->onDelete('CASCADE');

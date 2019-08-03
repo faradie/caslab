@@ -46,6 +46,4 @@
     </tbody>
   </table>
 </div>
-<form action="{{ route('buat_ujian') }}"><input class="btn btn-primary btn-block" type="submit" value="Buat Ujian" />
-</form>
 @stop

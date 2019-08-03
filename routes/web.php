@@ -8,7 +8,7 @@ Route::get('/', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 
 Route::resource('data_caslab','CaslabController');
 
-// Route::get('data_portofolio','PortofolioController@edit')->name('portofolio');
+Route::get('data_portofolio','PortofolioController@edit')->name('portofolio');
 Route::post('data_portofolio','PortofolioController@update');
 
 Route::get('tes/add','TesController@create')->name('addtes');
@@ -16,8 +16,8 @@ Route::post('tes/add','TesController@store')->name('storetes');
 Route::resource('tes','TesController');
 
 Route::resource('wawancara','WawancaraController');
-// Route::get('wawancara/add','WawancaraController@create')->name('addvalue');
-// Route::post('wawancara/add','WawancaraController@store')->name('storevalue');
+Route::get('wawancara/add','WawancaraController@create')->name('addvalue');
+Route::post('wawancara/add','WawancaraController@store')->name('storevalue');
 
 Route::resource('hasil','HasilController');
 
@@ -105,4 +105,12 @@ Route::group(['middleware' => ['role:asisten|admin','auth']], function () {
   
   Route::get('/ujian/nilai', 'AsistenController@list_nilai_total')->name('list_nilai_total');
   Route::patch('/ujian/nilai/{id}', 'AsistenController@list_nilai_ujian')->name('list_nilai_ujian');
+  Route::patch('/ujian/{idTest}/soal/{id}/destroy', 'AsistenController@hapus_soal')->name('hapus_soal');
+
+  Route::patch('/portofolio/{id}/nilai', 'AsistenController@penilaian_porto')->name('penilaian_porto');
+  Route::patch('/portofolio/{id}/submit', 'AsistenController@nilai_porto_submit')->name('nilai_porto_submit');
+  
+  
+  Route::patch('/topsis/{id}/rekomendasi', 'AsistenController@perhitunganTopsis')->name('perhitunganTopsis');
+  Route::get('/topsis/list', 'AsistenController@topsisOne')->name('topsisOne');
 });

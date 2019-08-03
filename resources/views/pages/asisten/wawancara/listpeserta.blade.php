@@ -33,13 +33,17 @@
                 <td>
                     @if (\App\Wawancara::where(['nim' =>
                     $key])->where('idTest',$Test->id)->first() != null)
-                    Telah terisi
+                    <form action="{{ route('action_wawancara',[$Test->id,$key]) }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('PATCH') }}
+                        <input class="btn btn-danger" name="submitbutton" type="submit" value="Edit" />
+                    </form>
+                    
                     @else
                     <div class="btn-group" role="group" aria-label="...">
                             <form action="{{ route('action_wawancara',[$Test->id,$key]) }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('PATCH') }}
-                                <input class="btn btn-danger" name="submitbutton" type="submit" value="Diskualifikasi" />
                                 <input class="btn btn-info" name="submitbutton" type="submit" value="Penilaian" />
                             </form>
                         </div>

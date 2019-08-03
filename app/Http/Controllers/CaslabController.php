@@ -8,6 +8,7 @@ use App\User;
 use App\Tes;
 use App\Soaltes;
 use App\NilaiTulis;
+use App\Pilgan;
 use App\Portofolio;
 use App\Wawancara;
 use Webpatser\Uuid\Uuid;
@@ -175,7 +176,7 @@ class CaslabController extends Controller
         }
 
         if($portof != null){
-            $nilai_portof = 10;
+            $nilai_portof = $portof->nilai;
         }
 
         $total = $tulis+$nilai_wawancara+$nilai_portof;
@@ -184,6 +185,7 @@ class CaslabController extends Controller
 
     public function submit_pengerjaan($id,Request $request){
         try {
+        $nil=0;
         $Test = Tes::find($id);
         $soaltest = Soaltes::with('jawaban')->where('id_tes_fk',$Test->id)->get();
         foreach ($soaltest as $key => $value) {
@@ -194,6 +196,7 @@ class CaslabController extends Controller
                     'hasil' => true,
                     'idTest' => $Test->id
                 ]);
+                $nil +=10;
             }else{
                 NilaiTulis::create([
                     'nim' => auth()->user()->nim,
@@ -203,6 +206,12 @@ class CaslabController extends Controller
                 ]);
             }
         }
+
+        Pilgan::create([
+            'nim'=>auth()->user()->nim,
+            'idTest' => $Test->id,
+            'hasil' => $nil,
+        ]);
         
         return redirect()->route('ujian')->with('result_berhasil', 'Pekerjaan anda telah disimpan');
         } catch (\Throwable $th) {

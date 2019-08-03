@@ -14,5 +14,5 @@ class Wawancara extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','nim','idTest','keputusan','karakter','microteaching','komunikasi'];
+    protected $fillable = ['id','nim','idTest','keputusan','karakter','microteaching','komunikasi','hardware'];
 }

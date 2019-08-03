@@ -27,17 +27,17 @@
 
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('user_list') }}">
-      <i class="fas fa-fw fa-user-friends"></i>
-      <span>Daftar User</span></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('new_user') }}">
-      <i class="fas fa-fw fa-user"></i>
-      <span>User Baru</span></a>
-  </li>
-  <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <a class="nav-link" href="{{ route('user_list') }}">
+    <i class="fas fa-fw fa-user-friends"></i>
+    <span>Daftar User</span></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('new_user') }}">
+    <i class="fas fa-fw fa-user"></i>
+    <span>User Baru</span></a>
+</li>
+<!-- Nav Item - Pages Collapse Menu -->
+<!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
       aria-controls="collapseTwo">
       <i class="fas fa-fw fa-cog"></i>
@@ -52,8 +52,8 @@
         <a class="collapse-item" href="cards.html">Wawancara</a>
       </div>
     </div>
-  </li>
-  <hr class="sidebar-divider">
+  </li> -->
+<hr class="sidebar-divider">
 @endif
 
 
@@ -98,6 +98,12 @@
   <a class="nav-link" href="{{ route('list_nilai_total') }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Daftar Nilai Tes</span></a>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('topsisOne') }}">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Topsis</span></a>
 </li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

@@ -36,7 +36,7 @@
         <td>{{ $soal->pertanyaan }}</td>
         <td>{{ $soal->kunci_jwb }}</td>
         <td>
-              <form action="#" method="post">
+              <form action="{{ route('hapus_soal',[$Test->id,$soal->id]) }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
                 <input class="btn btn-danger" name="submitbutton" type="submit" value="Hapus" />

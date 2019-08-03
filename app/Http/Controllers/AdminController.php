@@ -28,9 +28,9 @@ class AdminController extends Controller
                 $userRoles->assignRole('caslab');
                     break;
             }
-            return redirect()->route('new_user')->with('result_berhasil', 'Penerimaan Berhasil');
+            return redirect()->route('new_user')->with('result_berhasil', 'Konfirmasi Berhasil');
         } catch (\Throwable $th) {
-            return redirect()->route('new_user')->with('result_gagal', 'Penerimaan Gagal');
+            return redirect()->route('new_user')->with('result_gagal', 'Konfirmasi Gagal');
         }
     }
 
@@ -40,11 +40,25 @@ class AdminController extends Controller
     }
 
     public function detail_user($id,Request $request){
-        $this_user = User::find($id);
-        $roles = \Spatie\Permission\Models\Role::all();
-        $permissions = \Spatie\Permission\Models\Permission::all();
-        $userRoles = $this_user->getRoleNames();
-        return view('pages.detailuser', compact('this_user','roles','permissions','userRoles'));
+        try{
+            switch($request->submitbutton){
+                case 'Detail':
+                $this_user = User::find($id);
+                $roles = \Spatie\Permission\Models\Role::all();
+                $permissions = \Spatie\Permission\Models\Permission::all();
+                $userRoles = $this_user->getRoleNames();
+                return view('pages.detailuser', compact('this_user','roles','permissions','userRoles'));
+                    break;
+                case 'Hapus':
+                $deletedUser = User::find($id);
+                $deletedUser->delete();
+                return redirect()->route('user_list');
+                    break;
+            }
+        }catch (\Throwable $th) {
+                return redirect()->route('user_list')->with('result_gagal', 'Permintaan Gagal');
+        }
+             
     }
 
     public function edit($id, Request $request){

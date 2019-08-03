@@ -25,6 +25,10 @@
     <input type="text" class="form-control" id="inputKomunikasi" placeholder="Nilai Komunikasi" name="inputKomunikasi"
         value="{{ old('inputKomunikasi') }}" required>
     <br>
+    <label for="inputHardware">Hardware.</label>
+    <input type="text" class="form-control" id="inputHardware" placeholder="Nilai Hardware" name="inputHardware"
+        value="{{ old('inputHardware') }}" required>
+    <br>
     <input class="btn btn-primary btn-block" type="submit" value="Submit" />
 </form>
 

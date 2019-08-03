@@ -8,15 +8,16 @@
     }
     foreach($nilai_tests as $nilai_test){
       ${'porto'.$nilai_test->nims}=0;
-      if ($nilai_test->hasils == 1) {
-        ${'tulis'.$nilai_test->nims} +=10;
+      if ($nilai_test->pilihanGanda != null ) {
+        ${'tulis'.$nilai_test->nims} = $nilai_test->pilihanGanda;
       }
-      ${'wawancaras'.$nilai_test->nims} = $nilai_test->keputusan+ $nilai_test->karakter + $nilai_test->microteaching + $nilai_test->komunikasi;
+      ${'wawancaras'.$nilai_test->nims} = $nilai_test->keputusan+ $nilai_test->karakter + $nilai_test->microteaching + $nilai_test->komunikasi+ $nilai_test->hardware;
       if ($nilai_test->porto_id != null) {
-        ${'porto'.$nilai_test->nims} +=10;
+        ${'porto'.$nilai_test->nims} = $nilai_test->nilai_porto;
       }
       ${'total'.$nilai_test->nims} = ${'tulis'.$nilai_test->nims} + ${'wawancaras'.$nilai_test->nims} + ${'porto'.$nilai_test->nims};
     }
+
 @endphp
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -48,7 +49,7 @@
     </thead>
     <tbody>
 
-      @foreach ($nilai_tests->unique('nims') as $nilai_test)
+      @foreach ($nilai_tests as $nilai_test)
       <tr>
         <th scope="row">{{$loop->iteration}}</th>
         <td>{{ $nilai_test->nims }}</td>

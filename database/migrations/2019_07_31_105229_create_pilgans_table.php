@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePortofoliosTable extends Migration
+class CreatePilgansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreatePortofoliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('portofolios', function (Blueprint $table) {
-            $table->string('id')->unique()->primary();
+        Schema::create('pilgans', function (Blueprint $table) {
             $table->string('nim',9);
-            $table->string('file')->nullable()->default(null);
-            $table->string('idTest');   
-            $table->Integer('nilai');              
-            $table->timestamps();
-
+            $table->string('idTest');
+            $table->decimal('hasil',8,2);
             $table->foreign('idTest')->references('id')->on('tes')->onDelete('CASCADE');
             $table->foreign('nim')->references('nim')->on('users')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 
@@ -33,6 +30,6 @@ class CreatePortofoliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('portofolios');
+        Schema::dropIfExists('pilgans');
     }
 }

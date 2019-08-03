@@ -40,6 +40,13 @@
                 <input class="btn btn-info" name="submitbutton" type="submit" value="Detail" />
               </form>
             </div>
+            <div class="btn-group" role="group" aria-label="...">
+              <form action="{{ route('detail_user',$user->nim) }}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('PATCH') }}
+                <input class="btn btn-danger" name="submitbutton" type="submit" value="Hapus" />
+              </form>
+            </div>
           </td>
         </tr>
   
